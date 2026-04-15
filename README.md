@@ -31,7 +31,7 @@ For the *hash function*, I use a simple *bit mixing routine*.
 If you want to use my implementation of a set, I assume you know the basic concepts of coding (especially in C/C++). All you need is the header file, so `#include "set.h"` (again, be aware of your working directory).
 The following default methods are available:
 - **add** (returns *true* if it is not a duplicate, *false* otherwise)
-- **contains** (self-explanotary)
+- **contains** (self-explanatory)
 - **remove** (returns *false* if the *key* is not present in the set, *true* otherwise)
 - **len** (returns size in an *unsigned* value)
 
