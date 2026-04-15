@@ -10,7 +10,7 @@ The batch script can additionally run the program by including argument **-r** (
 
 ## 2. Source code
 In the codebase, there are 2 (theoretically 4) important files, which realize the set ( *rbtree.[ cpp|h ]*, *set.[ cpp|h ]* ). See in **3.&nbsp;Implementation** why *rbrtree* is used.
-All file have less the 400 lines of code. The *main.cpp* file is used only for the interactive program, thus it is not interesting. The main part of both files are definitions of *classes* (essentially *data structures*).
+All files have less the 400 lines of code. The *main.cpp* file is used only for the interactive program, thus it is not interesting. The main part of both files are definitions of *classes* (essentially *data structures*).
 For the *rbtree* it is an implementation of a *Red-Black Tree* and for the *set* it is simply a *Set*. None of these files use a library other than *standard* (*std*&nbsp;&&nbsp;*iostream*).
 
 ## 3. Implementation
