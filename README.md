@@ -72,7 +72,7 @@ For additional information, see:
 - Red-Black Tree: [Wikipedia](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree) | [GeeksForGeeks](https://www.geeksforgeeks.org/dsa/introduction-to-red-black-tree/)
 
 ## 6. Project Structure
-- **bin**: folder containing exetucable file/s `set`
+- **bin**: folder containing executable file/s `set`
 - **script**: folder containing batch script/s `make`
 - **src**: codebase `main.cpp, set.[ cpp|h ], rbtree.[ cpp|h ]`
 
