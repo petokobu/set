@@ -1,3 +1,5 @@
+#include "bucket.h"
+
 #pragma once
 
 enum
@@ -15,20 +17,20 @@ struct node
     node *parent;
 };
 
-class RBTree
+class RBTree : public Bucket
 {
     public:
         RBTree();
         ~RBTree();
 
-        bool add(int key);
-        bool contains(int key);
-        bool remove(int key);
+        bool add(int key) override;
+        bool contains(int key) override;
+        bool remove(int key) override;
 
-        bool is_empty();
+        bool is_empty() override;
 
-        void reset_iter();
-        bool get_next(int *store);
+        void reset_iter() override;
+        bool get_next(int *store) override;
 
     private:
         node *root;

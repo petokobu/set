@@ -1,5 +1,5 @@
 #include <iostream>
-#include "set.h"
+#include "../lib/set.h"
 
 int main()
 {
