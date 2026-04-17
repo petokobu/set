@@ -3,6 +3,9 @@
 RBTree::RBTree()
 {
     NIL = new node{0, BLACK, 0, 0, 0};
+    NIL->left = NIL;
+    NIL->right = NIL;
+    NIL->parent = NIL;
     root = NIL;
     iter_node = NIL;
 }
@@ -209,7 +212,7 @@ void RBTree::insert_fixup(node *node)
             if (uncle->color == RED)
             {
                 node->parent->color = BLACK;
-                uncle->color == BLACK;
+                uncle->color = BLACK;
                 node->parent->parent->color = RED;
                 node = node->parent->parent;
             }
@@ -231,7 +234,7 @@ void RBTree::insert_fixup(node *node)
             if (uncle->color == RED)
             {
                 node->parent->color = BLACK;
-                uncle->color == BLACK;
+                uncle->color = BLACK;
                 node->parent->parent->color = RED;
                 node = node->parent->parent;
             }

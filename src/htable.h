@@ -1,4 +1,4 @@
-#include "rbtree.h"
+#include "bucket.h"
 
 #pragma once
 
@@ -7,29 +7,22 @@ enum
     BASE_SIZE = 256
 };
 
-class Set
+class HTable
 {
     public:
-        Set();
-        ~Set();
+        HTable(bool lite = false);
+        ~HTable();
 
         bool add(int key);
         bool contains(int key);
         bool remove(int key);
 
-        unsigned len();
-
         void reset_iter();
         bool get_next(int *store);
 
     private:
-        RBTree *buckets;
-        unsigned size;
+        Bucket **buckets;
         int iter_inx;
 
         unsigned hash(int key);
-
-    friend void print(Set &set);
 };
-
-void print(Set &set);
