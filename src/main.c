@@ -13,9 +13,9 @@ int main()
     if (set_contains(set, 1)) printf("Contains 1 FAIL\n");
     set_print(set);
     if (!set_remove(set, 0)) printf("Remove 0 FAIL\n");
-    if (!set_remove(set, 1)) printf("Remove 1 FAIL\n");
+    if (set_remove(set, 1)) printf("Remove 1 FAIL\n");
     set_print(set);
-    if (set_len(set) == 0u) printf("Size FILE\n");
+    if (!set_len(set) == 0u) printf("Size FAIL\n");
 
     set_fini(set);
 

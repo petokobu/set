@@ -7,6 +7,6 @@ if "%1"=="-r" (
     "%~dp0..\bin\%exec%"
 )
 
-echo "Compiled src/%main%.c into bin/%exec%.exe"
+echo Compiled src/%main%.c into bin/%exec%.exe
 
 echo on

@@ -47,7 +47,8 @@ void HTable::reset_iter()
 
 bool HTable::get_next(int *store)
 {
-    if (!buckets[iter_inx]->get_next(store))
+    if (buckets[iter_inx]->is_empty()
+        || !buckets[iter_inx]->get_next(store))
     {
         for (++iter_inx; iter_inx < BASE_SIZE
              && buckets[iter_inx]->is_empty(); ++iter_inx) ;
