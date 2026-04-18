@@ -15,6 +15,6 @@ if "%1"=="-r" (
     "%~dp0..\bin\%exec%"
 )
 
-echo "Compiled src/%main%.cpp into bin/%exec%.exe"
+echo Compiled src/%main%.cpp into bin/%exec%.exe
 
 echo on
