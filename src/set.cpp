@@ -43,3 +43,10 @@ void print(Set &set)
     int key;
     while (set.get_next(&key)) std::cout << key << " ";
 }
+
+void print(Set *set)
+{
+    set->reset_iter();
+    int key;
+    while (set->get_next(&key)) std::cout << key << " ";
+}

@@ -58,7 +58,7 @@ By *memory management* I mean how much of the allocated memory is used only for 
 Let's make this more precise.
 * **Red-Black Tree**:
   * first two attributes are *integer* values, the last three are *pointers*
-  * since the size of *pointers* is 8 bytes, aligment may need padding
+  * since the size of *pointers* is 8 bytes, alignment may need padding
   * *integers* are 4 bytes each, so together they occupy 8 bytes, so there is no need for padding
   * the total size of a single *node* is 32 bytes
   * since only 4 bytes are relevant to data, only 12.5 % is used for data

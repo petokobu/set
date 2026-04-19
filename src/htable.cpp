@@ -5,12 +5,8 @@
 
 HTable::HTable(bool lite)
 {
-    buckets = new Bucket*[BASE_SIZE];
-    for (int i = 0; i < BASE_SIZE; ++i)
-    {
-        if (lite) buckets[i] = new LList();
-        else buckets[i] = new RBTree();
-    }
+    buckets = new Bucket*[BASE_SIZE]{ 0 };
+    this->lite = lite;
     iter_inx = 0; 
 }
 
@@ -23,35 +19,44 @@ HTable::~HTable()
 bool HTable::add(int key)
 {
     unsigned inx = hash(key) % BASE_SIZE;
+    if (buckets[inx] == 0)
+    {
+        if (lite) buckets[inx] = new LList();
+        else buckets[inx] = new RBTree();
+    }
     return buckets[inx]->add(key);
 }
 
 bool HTable::contains(int key)
 {
     unsigned inx = hash(key) % BASE_SIZE;
+    if (buckets[inx] == 0) return false;
     return buckets[inx]->contains(key);
 }
 
 bool HTable::remove(int key)
 {
     unsigned inx = hash(key) % BASE_SIZE;
+    if (buckets[inx] == 0) return false;
     return buckets[inx]->remove(key);
 }
 
 void HTable::reset_iter()
 {
     iter_inx = 0;
-    if (!buckets[iter_inx]->is_empty())
-        buckets[iter_inx]->reset_iter();
+    if (buckets[iter_inx] != 0
+        && !buckets[iter_inx]->is_empty()) buckets[iter_inx]->reset_iter();
 }
 
 bool HTable::get_next(int *store)
 {
-    if (buckets[iter_inx]->is_empty()
+    if (buckets[iter_inx] == 0
+        || buckets[iter_inx]->is_empty()
         || !buckets[iter_inx]->get_next(store))
     {
         for (++iter_inx; iter_inx < BASE_SIZE
-             && buckets[iter_inx]->is_empty(); ++iter_inx) ;
+             && (buckets[iter_inx] == 0
+                 || buckets[iter_inx]->is_empty()); ++iter_inx) ;
         if (iter_inx == BASE_SIZE)
         {
             reset_iter();

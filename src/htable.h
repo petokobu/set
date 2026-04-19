@@ -23,6 +23,7 @@ class HTable
     private:
         Bucket **buckets;
         int iter_inx;
+        bool lite;
 
         unsigned hash(int key);
 };

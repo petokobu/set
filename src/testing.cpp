@@ -1,9 +1,19 @@
 #include <iostream>
 #include "../lib/set.h"
 
+void speed_test();
+void display_test();
+
 int main()
 {
-    int limit = 0xffffff;
+    speed_test();
+
+    return 0;
+}
+
+void speed_test()
+{
+    int limit = 0xfffff;
 
     Set *rb_set = new Set();
     Set *ll_set = new Set(true);
@@ -28,6 +38,16 @@ int main()
 
     delete rb_set;
     delete ll_set;
+}
 
-    return 0;
+void display_test()
+{
+    Set *set = new Set();
+
+    set->add(1);
+    set->add(2);
+
+    print(set);
+
+    delete set;
 }

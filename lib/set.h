@@ -25,3 +25,4 @@ class Set
 };
 
 void print(Set &set);
+void print(Set *set);
