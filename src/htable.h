@@ -1,16 +1,12 @@
 #include "bucket.h"
+#include "cache.h"
 
 #pragma once
-
-enum
-{
-    BASE_SIZE = 256
-};
 
 class HTable
 {
     public:
-        HTable(bool lite = false);
+        HTable(int base_size, bool lite = false);
         ~HTable();
 
         bool add(int key);
@@ -22,6 +18,7 @@ class HTable
 
     private:
         Bucket **buckets;
+        int base_size;
         int iter_inx;
         bool lite;
 

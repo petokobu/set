@@ -3,22 +3,23 @@
 #include "rbtree.h"
 #include "llist.h"
 
-HTable::HTable(bool lite)
+HTable::HTable(int base_size, bool lite)
 {
-    buckets = new Bucket*[BASE_SIZE]{ 0 };
+    buckets = new Bucket*[base_size]{ 0 };
     this->lite = lite;
+    this->base_size = base_size;
     iter_inx = 0; 
 }
 
 HTable::~HTable()
 {
-    for (int i = 0; i < BASE_SIZE; ++i) delete buckets[i];
+    for (int i = 0; i < base_size; ++i) delete buckets[i];
     delete[] buckets;
 }
 
 bool HTable::add(int key)
 {
-    unsigned inx = hash(key) % BASE_SIZE;
+    unsigned inx = hash(key) % base_size;
     if (buckets[inx] == 0)
     {
         if (lite) buckets[inx] = new LList();
@@ -29,14 +30,14 @@ bool HTable::add(int key)
 
 bool HTable::contains(int key)
 {
-    unsigned inx = hash(key) % BASE_SIZE;
+    unsigned inx = hash(key) % base_size;
     if (buckets[inx] == 0) return false;
     return buckets[inx]->contains(key);
 }
 
 bool HTable::remove(int key)
 {
-    unsigned inx = hash(key) % BASE_SIZE;
+    unsigned inx = hash(key) % base_size;
     if (buckets[inx] == 0) return false;
     return buckets[inx]->remove(key);
 }
@@ -54,10 +55,10 @@ bool HTable::get_next(int *store)
         || buckets[iter_inx]->is_empty()
         || !buckets[iter_inx]->get_next(store))
     {
-        for (++iter_inx; iter_inx < BASE_SIZE
+        for (++iter_inx; iter_inx < base_size
              && (buckets[iter_inx] == 0
                  || buckets[iter_inx]->is_empty()); ++iter_inx) ;
-        if (iter_inx == BASE_SIZE)
+        if (iter_inx == base_size)
         {
             reset_iter();
             return false;

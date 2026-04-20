@@ -1,29 +1,36 @@
 #include <iostream>
 #include "../lib/set.h"
 #include "htable.h"
+#include "cache.h"
 
 Set::Set(bool lite)
 {
-    htable = new HTable(lite);
+    cache = new Cache(CACHE_SIZE);
+    htable = new HTable(HTABLE_SIZE, lite);
     size = 0;
 }
 
 Set::~Set()
-{ delete htable; }
+{
+    delete cache;
+    delete htable;
+}
 
 bool Set::add(int key)
 {
-    if (!htable->add(key)) return false;
+    int rep;
+    if (cache->add(key, &rep)
+        && (rep == key || !htable->add(rep))) return false;
     ++size;
     return true;
 }
 
 bool Set::contains(int key)
-{ return htable->contains(key); }
+{ return cache->contains(key) || htable->contains(key); }
 
 bool Set::remove(int key)
 {
-    if (!htable->remove(key)) return false;
+    if (!cache->remove(key) && !htable->remove(key)) return false;
     --size;
     return true;
 }
@@ -32,10 +39,20 @@ unsigned Set::len()
 { return size; }
 
 void Set::reset_iter()
-{ htable->reset_iter(); }
+{
+    flush();
+    htable->reset_iter();
+}
 
 bool Set::get_next(int *store)
 { return htable->get_next(store); }
+
+void Set::flush()
+{
+    int b_size = cache->b_size();
+    for (int i = 0; i < b_size; ++i)
+        if (cache->is_valid(i)) htable->add(cache->pop(i));
+}
 
 void print(Set &set)
 {
