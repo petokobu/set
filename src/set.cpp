@@ -64,12 +64,18 @@ void print(Set &set)
 {
     set.reset_iter();
     int key;
-    while (set.get_next(&key)) std::cout << key << " ";
+    std::cout << "{";
+    if (set.get_next(&key)) std::cout << " " << key;
+    while (set.get_next(&key)) std::cout << ", " << key;
+    std::cout << " }";
 }
 
 void print(Set *set)
 {
     set->reset_iter();
     int key;
-    while (set->get_next(&key)) std::cout << key << " ";
+    std::cout << "{";
+    if (set->get_next(&key)) std::cout << " " << key;
+    while (set->get_next(&key)) std::cout << ", " << key;
+    std::cout << " }";
 }

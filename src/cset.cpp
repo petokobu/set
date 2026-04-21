@@ -32,8 +32,10 @@ void set_print(Set *set)
 {
     set_reset_iter(set);
     int key;
-    while (set_get_next(set, &key)) printf("%d ", key);
-    printf("\n");
+    printf("{");
+    if (set_get_next(set, &key)) printf(" %d", key);
+    while (set_get_next(set, &key)) printf(", %d", key);
+    printf(" }");
 }
 
 }
