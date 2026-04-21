@@ -40,8 +40,8 @@ bool Cache::add(int key, int *rep)
 bool Cache::contains(int key)
 {
     int inx = hash(key) % base_size;
-    if (inx == sentinel) return sentinel_occ;
-    return buckets[inx] != 0;
+    if (inx == sentinel) return sentinel_occ && buckets[inx] == key;
+    return buckets[inx] == key;
 }
 
 bool Cache::remove(int key)

@@ -79,16 +79,16 @@ Let's make this more precise.
   * since the size of *pointers* is 8 bytes, alignment may need padding
   * *integers* are 4 bytes each, so together they occupy 8 bytes, so there is no need for padding
   * the total size of a single *node* is 32 bytes
-  * since only 4 bytes are relevant to data, only 12.5 % is used for data
-  * that means we are using 8x more memory (&nbsp;i.e., 800% of the raw data size&nbsp;)
+  * since only 4 bytes are relevant to data, only 12.5&nbsp;% is used for data
+  * that means we are using 8x more memory (&nbsp;i.e., 800&nbsp;% of the raw data size&nbsp;)
   * 512 KiB of data would actually allocate 4 MiB
 * **Linked-List**:
   * the first attribute is an *integer*, the second is a *pointer*
   * size of *pointers* is 8 bytes and the size of *integers* is 4 bytes
   * there is a need for padding, so we need to add 4 bytes after the first attribute
   * the total size of a single *node* is 16 bytes
-  * since only 4 bytes are relevant to data, only 25 % is used for data
-  * that means we are using 4x more memory (&nbsp;i.e., 400% of the raw data size&nbsp;)
+  * since only 4 bytes are relevant to data, only 25&nbsp;% is used for data
+  * that means we are using 4x more memory (&nbsp;i.e., 400&nbsp;% of the raw data size&nbsp;)
   * 512 KiB of data would actually allocate 2 MiB
 
 We can see that *Linked-Lists* potentially use 2x less memory than *Red-Black Trees*.
@@ -106,8 +106,9 @@ It is implemented as a simple *Hash-Table*, with the same *hashing function* as 
 The table size is of course smaller, it is by default set to one fourth of the *backend size*.
 If you add a value into a *set*, the *parent class* will firstly check the *cache*.
 If the cell is *occupied* and the *keys* are not identical, the original *key* will get replaced, and then *inserted* into the actual *backend structure*.
+Because of safety, the *set* will also check whether the *key* is not already in the *backend structue*.
 For *search* the *parent set* will do a lazy check firstly in *cache* and then in the *backend structure*. For *remove*, the *set* will need to go through
-both structures (&nbsp;thus a *cache* will not improve *deletion*&nbsp;).
+both structures (&nbsp;thus a *cache* will not improve *deletion*, for *insertion* it might skip insertion into the *backend structure*&nbsp;).
 #### 3.4.S Sentinel Index
 To validate whether a *cell* is occupied, I didn't want to use *heavy metadata*. I simply calculated the *index*, where the *key 0* would be located and set it as
 the *sentinel index*. Now, for all other *cells* I can freely use *0* as the indicator for vacancy. Then a plain *bool* occupancy indicator is enough for the *sentinel index*.
@@ -132,7 +133,7 @@ The *header* files are available for free use. They are located in the `./lib/` 
 I assume you know the basic concepts of coding (&nbsp;especially C/C++&nbsp;).
 ### 4.1 Functionality
 The following methods are available:
-* **add** (&nbsp;returns *true* if no duplicate was added, *false* otherwise&nbsp;)
+* **add** (&nbsp;returns *true* if no duplicate was added, *false* otherwise, but this is not reliable for *Linked-List*&nbsp;)
 * **contains** (&nbsp;self-explanatory&nbsp;)
 * **remove** (&nbsp;returns *false* if the *key* is not present, *true* otherwise&nbsp;)
 * **len** (&nbsp;returns *set size* as an *unsigned* value&nbsp;)

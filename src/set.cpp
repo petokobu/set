@@ -18,9 +18,13 @@ Set::~Set()
 
 bool Set::add(int key)
 {
+    if (htable->contains(key)) return false;
     int rep;
-    if (cache->add(key, &rep)
-        && (rep == key || !htable->add(rep))) return false;
+    if (cache->add(key, &rep))
+    {
+        if (key == rep) return false;
+        else htable->add(rep);
+    }
     ++size;
     return true;
 }

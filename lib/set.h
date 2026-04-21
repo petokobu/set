@@ -15,7 +15,7 @@ class Set
         Set(bool lite = false);
         ~Set();
 
-        bool add(int key);
+        bool add(int key);  //! BUG: needs to check backend, not just cache
         bool contains(int key);
         bool remove(int key);
 
