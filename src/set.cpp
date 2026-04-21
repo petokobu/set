@@ -30,7 +30,9 @@ bool Set::contains(int key)
 
 bool Set::remove(int key)
 {
-    if (!cache->remove(key) && !htable->remove(key)) return false;
+    bool in_cache = false;
+    if (cache->remove(key)) in_cache = true;
+    if (!htable->remove(key) && !in_cache) return false;
     --size;
     return true;
 }
